@@ -59,6 +59,5 @@ out/
 
 # faiss-lang-pipeline/faiss_index/
 
-# CSVs
+# Ignore sensitive or non-essential data
 case_comments.xlsx
-test_sfdc.csv
