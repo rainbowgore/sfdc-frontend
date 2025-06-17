@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "next dev",
-    "build": "echo 'no frontend build required'",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
