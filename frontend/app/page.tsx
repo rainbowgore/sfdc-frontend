@@ -497,11 +497,6 @@ export default function Dashboard() {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-
-                  {/* Added text */}
-                  <span className="text-white text-sm">
-                    made with 💜 by the AI/ML team
-                  </span>
                 </div>
               </div>
             </div>
@@ -671,7 +666,7 @@ export default function Dashboard() {
                         </li>
                         <li className="flex items-start space-x-2">
                           <span className="text-emerald-400">•</span>
-                          <span>Semantic Sanity Checks: Used vector similarity to flag replies in the export that didn't match Salesforce records — not just exact text, but meaning</span>
+                          <span>Semantic Sanity Checks: Used vector similarity to flag replies in the export that didn't match Salesforce records, not just exact text, but meaning</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <span className="text-emerald-400">•</span>
@@ -830,7 +825,7 @@ export default function Dashboard() {
 
                       <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
                         <p>
-                          Once the conversations were cleaned, stitched, and semi-readable, it was time to hand them off to the model. But this wasn't improv night. The model wasn't being asked to riff — it had a job, and it had to follow instructions.
+                          Once the conversations were cleaned, stitched, and semi-readable, it was time to hand them off to the model. But this wasn't improv night. The model wasn't being asked to riff, it had a job, and it had to follow instructions.
                         </p>
                         <p>
                           The prompt was strict. Five fields. JSON. No introductions, no markdown, no emotional monologues. Just structured output, shaped for reentry into Salesforce or whatever downstream thing was waiting.
@@ -839,7 +834,7 @@ export default function Dashboard() {
                           To keep things on track, I built a parser that acted like airport security. If the model forgot a field, broke the format, or hallucinated a sixth answer about its childhood? It got flagged and skipped. No drama, just logs.
                         </p>
                         <p>
-                          Each case went through the same steps: prep the input, send it through GPT, pull out the fields, validate them, and map them back to their Salesforce-friendly names. The temperature was kept low for consistency, and failures didn't break the flow — they just politely exited.
+                          Each case went through the same steps: prep the input, send it through GPT, pull out the fields, validate them, and map them back to their Salesforce-friendly names. The temperature was kept low for consistency, and failures didn't break the flow, they just politely exited.
                         </p>
                       </div>
                     </div>
@@ -919,7 +914,8 @@ export default function Dashboard() {
                       <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
                         <p>
                           This tool was built to give the support engineering team at sorceress.io a sharper, more structured way to work with support data. It takes raw case logs, validates them, filters out the junk, enriches them with clean metadata, and makes the whole thing searchable via natural language. This fruitful collaboration was fueled by being connected to the beating heart of fast-paced and highly iterative teams. Whether engineers are debugging a stubborn issue or looking for patterns across past cases, they now have something better than scattered notes. They have a system that remembers, extracts, and helps them move faster.
-                        </p>
+                          </p>
+                          <p><i>made with 💜 by the AI/ML team</i></p>
                       </div>
                     </div>
                   </div>
