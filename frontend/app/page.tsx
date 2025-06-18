@@ -150,13 +150,13 @@ export default function Dashboard() {
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if (!file || !file.name.endsWith('.csv')) {
-      alert('Please select a valid CSV file (.csv)')
+    if (!file || (!file.name.endsWith('.csv') && !file.name.endsWith('.xlsx'))) {
+      alert('Please select a valid file (.csv or .xlsx)')
       return
     }
 
     setIsUploading(true)
-    setUploadedFileName(file.name) // Store the filename
+    setUploadedFileName(file.name)
     const formData = new FormData()
     formData.append("file", file)
 
@@ -164,7 +164,6 @@ export default function Dashboard() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/enrich-cases`, {
         method: "POST",
         body: formData,
-        // Add CORS headers
         mode: 'cors',
         headers: {
           'Accept': 'application/json',
@@ -537,15 +536,15 @@ export default function Dashboard() {
                     <Upload className="w-10 h-10 text-[#8dfa91]" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="text-2xl font-semibold text-white">Upload CSV</h3>
-                    <p className="text-gray-400">Select your .CSV file containing support case comments</p>
+                    <h3 className="text-2xl font-semibold text-white">Upload Spreadsheet</h3>
+                    <p className="text-gray-400">Select your .CSV or .XLSX file containing support case comments</p>
                   </div>
                   <div className="space-y-4">
                     <div>
                       <input
                         ref={fileInputRef}
                         type="file"
-                        accept=".csv"
+                        accept=".csv,.xlsx"
                         onChange={handleFileUpload}
                         className="hidden"
                         disabled={isUploading}
@@ -709,7 +708,7 @@ export default function Dashboard() {
                         </li>
                         <li>
                           <p className="text-white mb-1">Suspicious Keywords:</p>
-                          <p>Phrases like "Request submitted for integrating CVE-2025-24786 detection" or "Create a detection for CVE-X" were telltale signs. These tickets weren't conversations; they were glorified status dumps.</p>
+                          <p>Phrases like "Request submitted for integrating CVE-2025-24786 detection" or "Create a detection for CVE-X" were telltale signs. These tickets weren't conversations; they were automated messages.</p>
                         </li>
                         <li>
                           <p className="text-white mb-1">Reply Patterns:</p>
