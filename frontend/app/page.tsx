@@ -765,7 +765,7 @@ export default function Dashboard() {
                     </p>
 
                     <p className="text-emerald-400 font-medium">
-                      So this step is about filtration. And a little dignity.
+                      So this step is about filtration.
                     </p>
 
                     <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 my-4">
@@ -841,9 +841,6 @@ export default function Dashboard() {
                         <p>
                           Each case went through the same steps: prep the input, send it through GPT, pull out the fields, validate them, and map them back to their Salesforce-friendly names. The temperature was kept low for consistency, and failures didn't break the flow — they just politely exited.
                         </p>
-                        <p>
-                          What came out wasn't perfect. But it was structured, useful, and trustworthy enough to push forward.
-                        </p>
                       </div>
                     </div>
 
@@ -863,7 +860,7 @@ export default function Dashboard() {
                           Then I ran a diff check between the raw input and the model's output. If GPT said a case was urgent, but the conversation was three lines of polite small talk, something had gone sideways. If a sentiment reason read like a bad improv monologue, it got tossed.
                         </p>
                         <p>
-                          When fields were malformed, blank, or filled with nonsense, I patched what I could and skipped what I couldn't. A CLI script made it easy to isolate anomalies, re-run specific cases, and log everything without blowing up the whole file.
+                          When fields were malformed, blank, or filled with nonsense, I patched what I could and skipped what I couldn't. A CLI tool made it easy to isolate anomalies, re-run specific cases, and log everything without blowing up the whole file.
                         </p>
                         <p>
                           The goal wasn't to audit every row. It was to build confidence. After all, the enrichment wasn't the end of the road - it was the data everyone else would rely on. I had to make sure the alchemist's work didn't turn the dataset to lead.
@@ -898,7 +895,7 @@ export default function Dashboard() {
 
                     <div className="prose prose-sm max-w-none space-y-6">
                       <h4 className="font-semibold text-white text-lg">
-                        Step 6: Merge the Data, Invoke the Archivist (FAISS + LangChain)
+                        Step 6: Merge the Data, Invoke the Archivists (FAISS + LangChain)
                       </h4>
 
                       <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
