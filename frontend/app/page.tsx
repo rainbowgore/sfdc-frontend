@@ -318,7 +318,7 @@ export default function Dashboard() {
                 <CardContent className="space-y-4">
                   <p className="text-gray-300 text-sm leading-relaxed">
                     This assistant answers questions about the cases you uploaded. Ask about summary, urgency,
-                    sentiment, or specific Case IDs.
+                    sentiment, or specific Case IDs: e.g. "What is the sentiment of case 500gK000006Z2FeQAK?" or "What is the urgency of case 500gK000006Z2FpQAK?".
                   </p>
                   <Button
                     onClick={handleClearChat}
@@ -648,7 +648,7 @@ export default function Dashboard() {
 
                   <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
                     <p>
-                      Every AI pipeline rests on assumptions. Some are formal: model capabilities, token limits, rate constraints. Others are just wishful thinking: the data will arrive clean, the schema will match what's on the whiteboard, and no surprises will spring from the underworld of legacy systems. This step was about vaporizing those illusions before they turned into silent failure modes.
+                      Every AI pipeline rests on assumptions. Some are formal: model capabilities, token limits, rate constraints. Others are just wishful thinking: the data will arrive clean, the schema will match what's on the whiteboard, and no surprises will spring from the underworld of legacy systems. This step was about vaporizing those illusions before they turned into the silent failure boogieman.
                     </p>
 
                     <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 my-4">
@@ -656,43 +656,42 @@ export default function Dashboard() {
                       <ul className="space-y-2">
                         <li className="flex items-start space-x-2">
                           <span className="text-emerald-400">•</span>
-                          <span>Required fields like Writer__c, body__c, and Case__c exist and are correctly typed</span>
+                          <span>Schema Compliance: Verified all critical fields (Writer__c, body__c, Case__c, Summary__c, etc.) exist with expected types across Case and Case_Reply__c</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <span className="text-emerald-400">•</span>
-                          <span>Referential integrity holds (every Case__c maps to a real case)</span>
+                          <span>Referential Integrity: Ensured every Case__c field maps to a valid Case ID in Salesforce</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <span className="text-emerald-400">•</span>
-                          <span>Null rates are within acceptable thresholds</span>
+                          <span>Text Fidelity: Compared stitched case conversations from the export to live Salesforce replies and descriptions to catch gaps or mismatches</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <span className="text-emerald-400">•</span>
-                          <span>Example values reflect downstream logic expectations</span>
+                          <span>Enrichment Coverage: Confirmed all enriched fields (Summary__c, Sentiment__c, etc.) are populated post-processing</span>
+                        </li>
+                        <li className="flex items-start space-x-2">
+                          <span className="text-emerald-400">•</span>
+                          <span>Semantic Sanity Checks: Used vector similarity to flag replies in the export that didn't match Salesforce records — not just exact text, but meaning</span>
+                        </li>
+                        <li className="flex items-start space-x-2">
+                          <span className="text-emerald-400">•</span>
+                          <span>Manual Spot Checks: Reviewed samples for formatting, tone, and logical coherence to validate downstream usefulness</span>
                         </li>
                       </ul>
                     </div>
 
                     <p>
-                      This wasn't just defensive programming. I've seen enough misaligned sandboxes and over-customized orgs to know that trusting the docs is a fantasy. One textarea mislabeled as a string, or a renamed custom field, and you're feeding junk into a model and praying for poetry.
+                      So, basically, no guesstimating. I pulled the schema definitions directly from Salesforce’s metadata API. Every required field - Writer__c, body__c, Case__c, Summary__c, Sentiment__c, and the rest was validated for both presence and type. If the docs said “textarea” but the metadata said “string,” that field was flagged.
                     </p>
-
-                    <div className="my-6">
-                      <div className="w-full h-48 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center">
-                        <p className="text-gray-400 text-sm">Validation workflow diagram</p>
-                      </div>
-                    </div>
-
                     <p>
-                      I began with structural validation. Two core Salesforce objects anchored the enrichment workflow: Case and Case_Reply__c. On paper, they looked fine. But Salesforce metadata is a moving target. So I queried the schema directly and audited every field.
+                      Then came the reality check. I took a stitched export of case conversations from the CSV, pulled their counterparts from Salesforce, and ran semantic diffing using SentenceTransformer. It wasn’t enough to match words. I needed to know if the meaning aligned.
                     </p>
-
                     <p>
-                      Then came a deeper kind of sanity check. I pulled random records from the dataset and cross-referenced them in Salesforce itself. Titles, reply bodies, update sequences: anything that confirmed I was dealing with the real thing, not echoes.
+                      Next was enrichment coverage. I queried Salesforce directly to confirm fields like Summary__c, Sentiment__c, and Suggested_Solution__c were actually populated post-processing. Any blanks? The case got flagged and logged.
                     </p>
-
                     <p>
-                      After that, I ran a completeness audit. Every case had to include a Description and at least one valid reply. If it was empty, malformed, or weirdly quiet, it got logged or dropped.
+                      Finally, I sampled records manually to perform a gut-check for tone, coherence, and utility. Some of the questions I asked myself: Was the summary readable? Did the sentiment match? Could someone downstream act on the Next Best Action, or would they be left guessing?
                     </p>
 
                     <h5 className="font-semibold text-white mt-8 mb-4">Automated Message & Bot Case Detection</h5>
@@ -718,12 +717,6 @@ export default function Dashboard() {
                         </li>
                       </ul>
                     </div>
-
-                    <div className="bg-gray-900/50 border border-gray-700/50 rounded-lg p-4 my-4">
-                      <p className="text-white mb-2">Example Case 500gK000006Z8PWQA0:</p>
-                      <p className="text-gray-400">One reply. No context. Auto-tagged and gracefully ignored during enrichment.</p>
-                    </div>
-
                     <p>
                       Instead of trying to enrich these zombies, I gave them a polite label: "automated placeholders" and steered them away from downstream modeling.
                     </p>
